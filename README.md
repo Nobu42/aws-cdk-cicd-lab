@@ -1,5 +1,9 @@
 # Welcome to your CDK TypeScript project
 
+## 設計
+
+- [インフラ設計書（AWS CDK / CI/CD検証基盤）](./docs/Design_Specification.md)
+
 ## 作業記録
 
 - [CDK / TypeScript 導入・初回テンプレート生成記録](./docs/01_cdk_setup.md)
