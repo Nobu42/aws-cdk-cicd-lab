@@ -1,8 +1,27 @@
-*.js
-!jest.config.js
-*.d.ts
-node_modules
+# Dependencies and build output (all projects)
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
 
 # CDK asset staging directory
-.cdk.staging
-cdk.out
+.cdk.staging/
+cdk.out/
+
+# Terraform local data; keep .terraform.lock.hcl in Git
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+
+# Local secrets and OS files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store

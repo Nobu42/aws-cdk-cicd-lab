@@ -2,6 +2,9 @@
 
 作成日: 2026-09-26
 
+本書は移動前の初回作業時の記録である。下記のパスとコマンドは当時の状態を残している。
+2026-09-27にCDKプロジェクトを`04-original-system`へ移動した。現在の作業場所と各操作の理由は[自作システムの構築手順](../../04-original-system/README.md)、学習順序は[全体README](../../README.md)を参照する。
+
 ## 目的と到達点
 
 AWS CDK、TypeScript、AWS CodeシリーズによるCI/CDの検証用環境を準備する。
@@ -125,7 +128,7 @@ npx cdk synth --profile learning
 `synth`はCDKコードからCloudFormationテンプレート等を生成する操作である。今回の操作でAWSスタックをデプロイしたわけではない。
 また、この結果だけでは学習用アカウントIDや、今後のデプロイに必要な権限が確認済みとは言えない。`get-caller-identity`の実行結果は本記録では未確認である。
 
-## 現在の主要ファイル
+## 初回作業時の主要ファイル（移動前）
 
 ```text
 aws-cdk-cicd-lab/
@@ -146,7 +149,11 @@ aws-cdk-cicd-lab/
 - `cdk bootstrap`と`cdk deploy`
 - Jestによるテスト実行
 - CodePipeline / CodeBuild / CodeDeployの構築
-- GitHubリモート登録・push（記録作成時点でリモート設定なし）
+
+## 記録作成後の更新
+
+GitHubリモート登録と初回pushは完了した。`main`は`origin/main`を追跡している。
+コード、導入記録、CDK用設計書を公開し、既存TerraformリポジトリのREADMEからリンクした。
 
 ## 参照
 
