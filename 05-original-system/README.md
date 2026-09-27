@@ -2,7 +2,7 @@
 
 [全体の学習順序へ戻る](../README.md)
 
-書籍3冊の実践後に再開する自作システムの手順である。2026-09-27に既存のCDK雛形をこのディレクトリへ移動した。
+書籍4冊の実践後に再開する自作システムの手順である。2026-09-27に既存のCDK雛形をこのディレクトリへ移動した。
 
 AWS上のWeb基盤をTypeScriptで定義し、CDKで構築するための学習用リポジトリ。
 後続でCodePipeline、CodeBuild、CodeDeployを追加し、アプリケーションの自動配布を検証する。
@@ -25,7 +25,7 @@ AWS上のWeb基盤をTypeScriptで定義し、CDKで構築するための学習�
 | 項目 | 値 |
 | --- | --- |
 | 作業端末 | Apple Silicon Mac / Bash / Homebrew |
-| 作業場所 | `/Users/nobu/aws-cdk-cicd-lab/04-original-system` |
+| 作業場所 | `/Users/nobu/aws-cdk-cicd-lab/05-original-system` |
 | AWSプロファイル | `learning` |
 | 使用リージョン | `ap-northeast-1` |
 | Node.js | 24系 |
@@ -40,7 +40,7 @@ Node.jsの切り替えはターミナルごとの設定としている。新し�
 ```bash
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
 hash -r
-cd /Users/nobu/aws-cdk-cicd-lab/04-original-system &&
+cd /Users/nobu/aws-cdk-cicd-lab/05-original-system &&
 node --version &&
 git status --short --branch
 ```
@@ -106,7 +106,7 @@ aws configure get region --profile learning
 
 ## 4. CDKプロジェクトを作成する（初回のみ）
 
-このプロジェクトは初期化済みである。以下は移動前にリポジトリ直下で行った初回操作の記録であり、再実行しない。現在の実行場所は`04-original-system`である。GitHubからcloneした場合も`cdk init`は不要である。
+このプロジェクトは初期化済みである。以下は移動前にリポジトリ直下で行った初回操作の記録であり、再実行しない。現在の実行場所は`05-original-system`である。GitHubからcloneした場合も`cdk init`は不要である。
 
 ```bash
 mkdir -p /Users/nobu/aws-cdk-cicd-lab &&
@@ -126,7 +126,7 @@ npx --package=aws-cdk cdk init app --language typescript
 | `--language typescript` | TypeScript用の雛形を選択する |
 
 初回に生成されたCLIバージョンは2.1143.0である。上記の初期化コマンドはバージョン未固定のため、将来実行した場合の雛形は変わり得る。
-移動後はプロジェクト内のCDKを使うため、コマンドを`04-original-system`から実行する。
+移動後はプロジェクト内のCDKを使うため、コマンドを`05-original-system`から実行する。
 
 公式参照: [cdk init](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/ref-cli-cmd-init.html)、[TypeScriptとローカルツールの利用](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/work-with-cdk-typescript.html)
 
@@ -265,7 +265,7 @@ AWS情報の参照が必要なコードではsynth中に読み取りAPIを利用
 - `bin`と`lib`の役割を説明できる。
 - AWSへのデプロイはまだ行っていないと区別できる。
 
-書籍3冊の実践後、[設計書](./docs/Design_Specification.md)に沿ってdev用のVPC等を定義する。bootstrapやdeployは、接続先・定義内容・費用・削除方法を確認する段階で扱う。
+書籍4冊の実践後、[設計書](./docs/Design_Specification.md)に沿ってdev用のVPC等を定義する。bootstrapやdeployは、接続先・定義内容・費用・削除方法を確認する段階で扱う。
 
 ## トラブル時の確認
 

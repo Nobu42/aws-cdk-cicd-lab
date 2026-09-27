@@ -5,7 +5,7 @@
 
 [自作システムの手順へ戻る](../README.md) / [全体の学習順序へ戻る](../../README.md)
 
-2026-09-27追記: 本設計は書籍3冊の実践後に取り組む自作システム用である。CDKプロジェクトの作業場所は`/Users/nobu/aws-cdk-cicd-lab/04-original-system`となる。
+2026-09-27追記: 本設計は書籍4冊の実践後に取り組む自作システム用である。CDKプロジェクトの作業場所は`/Users/nobu/aws-cdk-cicd-lab/05-original-system`となる。
 
 ## 1. 目的
 

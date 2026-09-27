@@ -1,16 +1,17 @@
 # AWS CDK / IaC 学習・実践記録
 
-書籍3冊を順番に実践し、最後に既存のWeb基盤設計を基に自作システムを構築する。
+書籍4冊を順番に実践し、最後に既存のWeb基盤設計を基に自作システムを構築する。
 各書籍の実装、確認結果、現在のAWS環境に合わせた変更理由を分けて記録する。
 
 ## 1. 学習する場所を選ぶ
 
 | 順番 | 資料・作業場所 | 内容 | 進捗 |
 | --- | --- | --- | --- |
-| 1 | [実践 AWS CDK（2020年）](./01-practical-cdk-2020/README.md) | TypeScript、Step Functions、感情分析、テスト、CI/CD | 目次確認済み。実装未着手 |
-| 2 | [［詳解］AWS Infrastructure as Code](./02-terraform-and-cdk/README.md) | 書籍に沿ったTerraformとAWS CDKの実践 | 未着手 |
-| 3 | [AWS CDK実践ガイド](./03-cdk-practical-guide/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
-| 4 | [自作システム](./04-original-system/README.md) | 既存Web基盤の設計をCDKで実装し、CI/CDを追加 | 雛形・初回build / synth・設計案まで。構築は書籍終了後 |
+| 1 | [実践 AWS CDK（2020年）](./01-practical-cdk-2020/README.md) | TypeScript、Step Functions、感情分析、テスト、CI/CD | 第2章。sample作成・build・list・synth確認済み。未デプロイ |
+| 2 | [マスタリングAWS CDK](./02-mastering-aws-cdk/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
+| 3 | [［詳解］AWS Infrastructure as Code](./03-terraform-and-cdk/README.md) | 書籍に沿ったTerraformとAWS CDKの実践 | 未着手 |
+| 4 | [AWS CDK実践ガイド](./04-cdk-practical-guide/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
+| 5 | [自作システム](./05-original-system/README.md) | 既存Web基盤の設計をCDKで実装し、CI/CDを追加 | 雛形・初回build / synth・設計案まで。構築は書籍終了後 |
 
 現在は1冊目から進める。自作システムの既存雛形を1冊目の完成コードとして扱わない。
 
@@ -24,12 +25,15 @@ aws-cdk-cicd-lab/
 │   └── setup/
 │       └── 01_cdk_setup.md
 ├── 01-practical-cdk-2020/
+│   ├── README.md
+│   └── sample/
+├── 02-mastering-aws-cdk/
 │   └── README.md
-├── 02-terraform-and-cdk/
+├── 03-terraform-and-cdk/
 │   └── README.md
-├── 03-cdk-practical-guide/
+├── 04-cdk-practical-guide/
 │   └── README.md
-└── 04-original-system/
+└── 05-original-system/
     ├── README.md
     ├── bin/
     ├── lib/
@@ -62,14 +66,14 @@ node --version
 
 公式参照: [AWS CDKのNode.jsサポート](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/node-versions.html)
 
-## 4. 1冊目の学習を開始する
+## 4. 1冊目の学習を再開する
 
 ```bash
-cd /Users/nobu/aws-cdk-cicd-lab/01-practical-cdk-2020
+cd /Users/nobu/aws-cdk-cicd-lab/01-practical-cdk-2020/sample
 ```
 
-次に書籍の「2.2 CDK環境の構築」「2.3 CDKプロジェクトの作成」を確認する。使用バージョンと初期化コマンドを確認してから、書籍用のプロジェクトを作成する。
-理由: 自作システム用に作成したCDK v2の雛形と、2020年の書籍の構成が同一であるとは限らないためである。
+第2章のsample作成、build、list、synthまで確認済みである。初期化は再実行せず、2.4のデプロイ手順の確認から再開する。ESLint・Prettierの導入は保留中である。
+理由: 生成済みのCDK v2プロジェクトを使い、2020年の書籍との差分を確認しながら進めるためである。AWSへの操作では`--profile learning`で対象を明示する。
 
 書籍の順番を優先し、動作のために変更する場合は「書籍の記述・変更後・理由・結果」を各書籍の手順書へ記録する。
 
@@ -86,11 +90,11 @@ git status --short
 
 ## 6. 自作システムを再開する場所
 
-書籍3冊の実践後に、[CDK用設計書](./04-original-system/docs/Design_Specification.md)と[構築手順](./04-original-system/README.md)を使用する。
+書籍4冊の実践後に、[CDK用設計書](./05-original-system/docs/Design_Specification.md)と[構築手順](./05-original-system/README.md)を使用する。
 既存プロジェクトのnpm / CDKコマンドは次のディレクトリで実行する。
 
 ```bash
-cd /Users/nobu/aws-cdk-cicd-lab/04-original-system
+cd /Users/nobu/aws-cdk-cicd-lab/05-original-system
 ```
 
 リポジトリ直下には`package.json`や`cdk.json`を置かないため、直下から`npm run build`や`npx cdk synth`は実行しない。
