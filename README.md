@@ -7,13 +7,15 @@
 
 | 順番 | 資料・作業場所 | 内容 | 進捗 |
 | --- | --- | --- | --- |
-| 1 | [実践 AWS CDK（2020年）](./01-practical-cdk-2020/README.md) | TypeScript、Step Functions、感情分析、テスト、CI/CD | 第2章。sample作成・build・list・synth確認済み。未デプロイ |
+| 1 | [実践 AWS CDK（2020年）](./01-practical-cdk-2020/README.md) | TypeScript、Step Functions、感情分析、テスト、CI/CD | 第2章のデプロイ・送受信・差分確認・CLIでの削除成功まで確認済み |
 | 2 | [マスタリングAWS CDK](./02-mastering-aws-cdk/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
 | 3 | [［詳解］AWS Infrastructure as Code](./03-terraform-and-cdk/README.md) | 書籍に沿ったTerraformとAWS CDKの実践 | 未着手 |
 | 4 | [AWS CDK実践ガイド](./04-cdk-practical-guide/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
 | 5 | [自作システム](./05-original-system/README.md) | 既存Web基盤の設計をCDKで実装し、CI/CDを追加 | 雛形・初回build / synth・設計案まで。構築は書籍終了後 |
 
 現在は1冊目から進める。自作システムの既存雛形を1冊目の完成コードとして扱わない。
+
+- [第2章の実践記録：コマンドの意味・理由・実行結果](./01-practical-cdk-2020/docs/02_cdk_basics.md)
 
 ## 2. ディレクトリ構成を確認する
 
@@ -26,6 +28,8 @@ aws-cdk-cicd-lab/
 │       └── 01_cdk_setup.md
 ├── 01-practical-cdk-2020/
 │   ├── README.md
+│   ├── docs/
+│   │   └── 02_cdk_basics.md
 │   └── sample/
 ├── 02-mastering-aws-cdk/
 │   └── README.md
@@ -72,7 +76,7 @@ node --version
 cd /Users/nobu/aws-cdk-cicd-lab/01-practical-cdk-2020/sample
 ```
 
-第2章のsample作成、build、list、synthまで確認済みである。初期化は再実行せず、2.4のデプロイ手順の確認から再開する。ESLint・Prettierの導入は保留中である。
+第2章はデプロイ、送受信、差分確認、CLIでの削除成功まで確認済みである。コンソールでの削除後確認結果は未共有である。次は第3章「TypeScript入門」へ進む。sampleは記録として保持し、初期化は再実行しない。ESLint・Prettierの導入は保留中である。
 理由: 生成済みのCDK v2プロジェクトを使い、2020年の書籍との差分を確認しながら進めるためである。AWSへの操作では`--profile learning`で対象を明示する。
 
 書籍の順番を優先し、動作のために変更する場合は「書籍の記述・変更後・理由・結果」を各書籍の手順書へ記録する。
@@ -103,4 +107,4 @@ cd /Users/nobu/aws-cdk-cicd-lab/05-original-system
 
 - [AWS CLI・Ansible・Terraformによる既存ラボ](https://github.com/Nobu42/terraform-iac-lab)
 
-更新日: 2026-09-27。今回の再編はファイル整理であり、AWSへのデプロイは行っていない。
+更新日: 2026-09-27。第2章のSampleStackはデプロイ・動作確認後にCLIで削除済み。CDKToolkitは残している。

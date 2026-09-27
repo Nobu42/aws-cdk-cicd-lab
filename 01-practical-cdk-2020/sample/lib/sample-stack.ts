@@ -9,7 +9,7 @@ export class SampleStack extends Stack {
     super(scope, id, props);
 
     const queue = new sqs.Queue(this, 'SampleQueue', {
-      visibilityTimeout: Duration.seconds(300)
+      visibilityTimeout: Duration.seconds(100)
     });
 
     const topic = new sns.Topic(this, 'SampleTopic');
