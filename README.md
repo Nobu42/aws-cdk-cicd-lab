@@ -7,7 +7,7 @@
 
 | 順番 | 資料・作業場所 | 内容 | 進捗 |
 | --- | --- | --- | --- |
-| 1 | [実践 AWS CDK（2020年）](./01-practical-cdk-2020/README.md) | TypeScript、Step Functions、感情分析、テスト、CI/CD | 第2章のデプロイ・送受信・差分確認・CLIでの削除成功まで確認済み |
+| 1 | [実践 AWS CDK（2020年）](./01-practical-cdk-2020/README.md) | TypeScript、Step Functions、感情分析、テスト、CI/CD | 第5章の雛形・依存追加まで。実装・AWS動作確認は未実施 |
 | 2 | [マスタリングAWS CDK](./02-mastering-aws-cdk/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
 | 3 | [［詳解］AWS Infrastructure as Code](./03-terraform-and-cdk/README.md) | 書籍に沿ったTerraformとAWS CDKの実践 | 未着手 |
 | 4 | [AWS CDK実践ガイド](./04-cdk-practical-guide/README.md) | 書籍に沿ったCDKの実践 | 未着手 |
@@ -18,6 +18,7 @@
 - [第2章の実践記録：コマンドの意味・理由・実行結果](./01-practical-cdk-2020/docs/02_cdk_basics.md)
 - [第3章の実践記録：TypeScriptの型・関数・クラス](./01-practical-cdk-2020/docs/03_typescript_basics.md)
 - [第4章のまとめ：Step Functions・ステート・入出力](./01-practical-cdk-2020/docs/04_step_functions_basics.md)
+- [第5章の構築手順：配置場所・コマンド・全ソースコード](./01-practical-cdk-2020/docs/05_osenchi_runbook.md)
 - [Vim設定と補完の使い方](./tools/vim/README.md) / [.vimrc](./tools/vim/.vimrc)
 
 ## 2. ディレクトリ構成を確認する
@@ -32,8 +33,12 @@ aws-cdk-cicd-lab/
 ├── 01-practical-cdk-2020/
 │   ├── README.md
 │   ├── docs/
-│   │   └── 02_cdk_basics.md
-│   └── sample/
+│   │   ├── 02_cdk_basics.md
+│   │   ├── 03_typescript_basics.md
+│   │   ├── 04_step_functions_basics.md
+│   │   └── 05_osenchi_runbook.md
+│   ├── sample/
+│   └── osenchi/
 ├── 02-mastering-aws-cdk/
 │   └── README.md
 ├── 03-terraform-and-cdk/
@@ -76,10 +81,10 @@ node --version
 ## 4. 1冊目の学習を再開する
 
 ```bash
-cd /Users/nobu/aws-cdk-cicd-lab/01-practical-cdk-2020/sample
+cd /Users/nobu/aws-cdk-cicd-lab/01-practical-cdk-2020/osenchi
 ```
 
-第2章はデプロイ、送受信、差分確認、CLIでの削除成功まで確認済みである。コンソールでの削除後確認結果は未共有である。第3章の練習と第4章の概要確認を記録し、次は第5章「感情分析システムを作ろう」へ進む。sampleは記録として保持し、初期化は再実行しない。ESLint・Prettierの導入は保留中である。
+第2章はデプロイ、送受信、差分確認、CLIでの削除成功まで確認済みである。コンソールでの削除後確認結果は未共有である。第3章の練習と第4章の概要確認を記録し、第5章はosenchiの初期化と依存追加まで進んだ。[第5章の手順書](./01-practical-cdk-2020/docs/05_osenchi_runbook.md)の「3. ソースコードを配置する」から再開する。sampleは記録として保持し、両プロジェクトとも初期化は再実行しない。ESLint・Prettierの導入は保留中である。
 理由: 生成済みのCDK v2プロジェクトを使い、2020年の書籍との差分を確認しながら進めるためである。AWSへの操作では`--profile learning`で対象を明示する。
 
 書籍の順番を優先し、動作のために変更する場合は「書籍の記述・変更後・理由・結果」を各書籍の手順書へ記録する。
