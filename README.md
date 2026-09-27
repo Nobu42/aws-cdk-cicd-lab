@@ -17,6 +17,7 @@
 
 - [第2章の実践記録：コマンドの意味・理由・実行結果](./01-practical-cdk-2020/docs/02_cdk_basics.md)
 - [第3章の実践記録：TypeScriptの型・関数・クラス](./01-practical-cdk-2020/docs/03_typescript_basics.md)
+- [第4章のまとめ：Step Functions・ステート・入出力](./01-practical-cdk-2020/docs/04_step_functions_basics.md)
 - [Vim設定と補完の使い方](./tools/vim/README.md) / [.vimrc](./tools/vim/.vimrc)
 
 ## 2. ディレクトリ構成を確認する
@@ -78,7 +79,7 @@ node --version
 cd /Users/nobu/aws-cdk-cicd-lab/01-practical-cdk-2020/sample
 ```
 
-第2章はデプロイ、送受信、差分確認、CLIでの削除成功まで確認済みである。コンソールでの削除後確認結果は未共有である。次は第3章「TypeScript入門」へ進む。sampleは記録として保持し、初期化は再実行しない。ESLint・Prettierの導入は保留中である。
+第2章はデプロイ、送受信、差分確認、CLIでの削除成功まで確認済みである。コンソールでの削除後確認結果は未共有である。第3章の練習と第4章の概要確認を記録し、次は第5章「感情分析システムを作ろう」へ進む。sampleは記録として保持し、初期化は再実行しない。ESLint・Prettierの導入は保留中である。
 理由: 生成済みのCDK v2プロジェクトを使い、2020年の書籍との差分を確認しながら進めるためである。AWSへの操作では`--profile learning`で対象を明示する。
 
 書籍の順番を優先し、動作のために変更する場合は「書籍の記述・変更後・理由・結果」を各書籍の手順書へ記録する。
