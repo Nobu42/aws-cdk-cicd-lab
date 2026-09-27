@@ -1,0 +1,223 @@
+" ==========================================
+" 1. プラグイン管理
+" ==========================================
+call plug#begin('~/.vim/plugged')
+
+Plug 'sheerun/vim-polyglot'       " 言語別シンタックスをまとめて強化
+Plug 'itchyny/lightline.vim'      " ステータスラインを見やすくする
+Plug 'jiangmiao/auto-pairs'       " 括弧・クォートの自動補完
+Plug 'hashivim/vim-terraform'     " Terraform専用プラグイン
+Plug 'pearofducks/ansible-vim'    " Ansible / YAML 補助
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+call plug#end()
+
+" ==========================================
+" 2. 基本設定
+" ==========================================
+set nocompatible
+set encoding=utf-8
+set fileencoding=utf-8
+
+set number
+set cursorline
+set showmatch
+set laststatus=2
+set wildmenu
+set title
+
+" AWS CLIや長いコマンドを読むことが多いため、折り返しは無効にする。
+set nowrap
+
+" 画面端までカーソルを動かした時に、少し余白を残す。
+set scrolloff=5
+set sidescrolloff=5
+
+" Backspaceを自然に使えるようにする。
+set backspace=indent,eol,start
+
+" macOSのクリップボード連携。
+" Vimがclipboard対応でビルドされている場合に有効。
+set clipboard+=unnamedplus
+
+" 不可視文字を表示する。
+" Shell Script / YAMLでは行末スペースやタブ混入が事故になりやすい。
+set list
+set listchars=tab:>-,trail:.,extends:>,precedes:<
+
+" 長いAWS CLIコマンドやYAMLを見やすくする目安線。
+set colorcolumn=120
+
+filetype plugin indent on
+syntax on
+
+" ==========================================
+" 3. 検索設定
+" ==========================================
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" Escを2回押すと検索ハイライトを消す。
+nnoremap <Esc><Esc> :nohlsearch<CR>
+
+" ==========================================
+" 4. インデント基本設定
+" ==========================================
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set smartindent
+
+" ==========================================
+" 5. Terraform設定
+" ==========================================
+autocmd BufRead,BufNewFile *.tf set filetype=terraform
+autocmd BufRead,BufNewFile *.tfvars set filetype=terraform
+
+autocmd FileType terraform setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType terraform setlocal colorcolumn=120
+
+" 保存時に terraform fmt を実行する。
+let g:terraform_fmt_on_save = 1
+let g:terraform_align = 1
+
+" ==========================================
+" 6. YAML / Ansible / CloudFormation設定
+" ==========================================
+autocmd BufRead,BufNewFile *.yml,*.yaml set filetype=yaml
+
+" YAMLは2スペース。
+" smartindentはYAMLと相性が悪いことがあるため無効化する。
+autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType yaml setlocal autoindent nosmartindent
+autocmd FileType yaml setlocal colorcolumn=120
+
+" Ansible関連ファイルをYAMLとして扱う。
+autocmd BufRead,BufNewFile */playbooks/*.yml set filetype=yaml
+autocmd BufRead,BufNewFile */playbooks/*.yaml set filetype=yaml
+autocmd BufRead,BufNewFile */group_vars/*.yml set filetype=yaml
+autocmd BufRead,BufNewFile */group_vars/*.yaml set filetype=yaml
+autocmd BufRead,BufNewFile */host_vars/*.yml set filetype=yaml
+autocmd BufRead,BufNewFile */host_vars/*.yaml set filetype=yaml
+
+" CloudFormationテンプレートもYAMLとして扱う。
+autocmd BufRead,BufNewFile *cloudformation*.yml set filetype=yaml
+autocmd BufRead,BufNewFile *cloudformation*.yaml set filetype=yaml
+autocmd BufRead,BufNewFile *cfn*.yml set filetype=yaml
+autocmd BufRead,BufNewFile *cfn*.yaml set filetype=yaml
+autocmd BufRead,BufNewFile template.yml set filetype=yaml
+autocmd BufRead,BufNewFile template.yaml set filetype=yaml
+
+" ==========================================
+" 7. Shell Script / AWS CLIスクリプト設定
+" ==========================================
+autocmd BufRead,BufNewFile *.sh set filetype=sh
+
+" Shell Scriptは2スペース。
+" AWS CLIの長いオプション行を読みやすくするため、120桁目に目安線を出す。
+autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType sh setlocal colorcolumn=120
+
+" ==========================================
+" 8. JSON設定
+" ==========================================
+autocmd BufRead,BufNewFile *.json set filetype=json
+autocmd FileType json setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType json setlocal colorcolumn=120
+
+" ==========================================
+" 9. Python / C設定
+" ==========================================
+autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType python setlocal colorcolumn=120
+
+autocmd FileType c setlocal noexpandtab tabstop=8 shiftwidth=8
+
+" ==========================================
+" 10. 保存時処理
+" ==========================================
+
+" 保存時に行末の空白を削除する。
+" YAML / Shell Script / Terraformで不要な差分を出さないため。
+autocmd BufWritePre * :%s/\s\+$//e
+
+" ==========================================
+" 11. マニュアル連携
+" ==========================================
+runtime ftplugin/man.vim
+
+" Kでカーソル下の単語をman検索する。
+nnoremap K :Man <C-R><C-W><CR>
+
+" ==========================================
+" 12. 実行ショートカット
+" ==========================================
+" Leaderキーはデフォルトの \ を使う。
+"
+" 注意:
+"   <Leader>r はファイル種別ごとの実行。
+"   YAMLではAnsible Playbook実行に割り当てている。
+"
+"   AWS CLIスクリプトはShell Scriptとして扱うため、
+"   <Leader>r で bash 現在ファイルを実行できる。
+
+" C
+autocmd FileType c nnoremap <buffer> <Leader>r :!gcc -Wall % -o %< && ./%<<CR>
+
+" Python
+autocmd FileType python nnoremap <buffer> <Leader>r :!python3 %<CR>
+
+" Shell Script
+autocmd FileType sh nnoremap <buffer> <Leader>r :!bash %<CR>
+
+" Shell Script構文チェック。
+" shellcheckが入っている場合に使う。
+autocmd FileType sh nnoremap <buffer> <Leader>c :!shellcheck %<CR>
+
+" Terraform
+autocmd FileType terraform nnoremap <buffer> <Leader>f :!terraform fmt %<CR>
+autocmd FileType terraform nnoremap <buffer> <Leader>v :!terraform validate<CR>
+autocmd FileType terraform nnoremap <buffer> <Leader>p :!terraform plan<CR>
+
+" Ansible Playbookの構文チェック。
+" 02-ansible/playbooks 配下で開いている想定。
+autocmd FileType yaml nnoremap <buffer> <Leader>c :!ansible-playbook --syntax-check -i ../inventory/hosts.ini %<CR>
+
+" Ansible Playbookの実行。
+autocmd FileType yaml nnoremap <buffer> <Leader>r :!ansible-playbook -i ../inventory/hosts.ini %<CR>
+
+" CloudFormationテンプレートのlint。
+" cfn-lintが入っている場合に使う。
+autocmd FileType yaml nnoremap <buffer> <Leader>l :!cfn-lint %<CR>
+
+" ==========================================
+" 13. 入力補助
+" ==========================================
+
+" C言語 main関数の展開。
+inoremap ;;m int main(int argc, char *argv[])<CR>{<CR>return 0;<CR>}<Esc>O
+" Bash用コメントボックスを挿入
+nnoremap <leader>cb i##########################################<CR># <CR>########################################<Esc>kA
+" Bash用echo区切りを挿入
+nnoremap <leader>eh iecho "================================================"<Esc>
+
+" ==========================================
+" 14. CoC入力補完
+" ==========================================
+
+" Ctrl+jで補完候補を表示
+inoremap <silent><expr> <C-j> coc#refresh()
+
+" 候補表示中はCtrl+nで次、Ctrl+pで前へ
+inoremap <silent><expr> <C-n>
+      \ coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
+inoremap <silent><expr> <C-p>
+      \ coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
+
+" 候補表示中はCtrl+yで確定
+inoremap <silent><expr> <C-y>
+      \ coc#pum#visible() ? coc#pum#confirm() : "\<C-y>"

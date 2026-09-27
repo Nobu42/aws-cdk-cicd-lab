@@ -16,6 +16,8 @@
 現在は1冊目から進める。自作システムの既存雛形を1冊目の完成コードとして扱わない。
 
 - [第2章の実践記録：コマンドの意味・理由・実行結果](./01-practical-cdk-2020/docs/02_cdk_basics.md)
+- [第3章の実践記録：TypeScriptの型・関数・クラス](./01-practical-cdk-2020/docs/03_typescript_basics.md)
+- [Vim設定と補完の使い方](./tools/vim/README.md) / [.vimrc](./tools/vim/.vimrc)
 
 ## 2. ディレクトリ構成を確認する
 
